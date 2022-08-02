@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMatches } from "../../context/matchesContext";
+import { setMatchesToStorage } from "../../storageService/Storage";
 import "./styles.css";
 
 export const NewMatch = () => {
@@ -16,13 +17,17 @@ export const NewMatch = () => {
 
   const handleMatchesContext = useMatches();
 
+  const matches = handleMatchesContext.state.matches;
+
+  useEffect(() => setMatchesToStorage(matches), [matches]);
+
   const handleCreateMatch = () => {
     home &&
       away &&
       handleMatchesContext.dispatch({
         type: "setMatch",
         payload: {
-          id: handleMatchesContext.state.matches.length,
+          id: matches.length,
           home: home,
           away: away,
         },

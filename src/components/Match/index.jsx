@@ -1,14 +1,19 @@
-import { memo, useState } from "react"
+import { memo, useEffect, useState } from "react"
 import './styles.css'
 import { handleValueToBeOnlyNumeric } from "../../utilities/numericInputMask"
 import { useMatches } from "../../context/matchesContext"
+import { setMatchesToStorage } from "../../storageService/Storage"
 
 const MatchComponent = ({homeName, awayName, homeScore, awayScore, id}) => {
 
     const [newHomeScore, setNewHomeScore] = useState('')
     const [newAwayScore, setNewAwayScore] = useState('')
 
-    const matches = useMatches()
+    const handleMatchesContext = useMatches()
+
+    const matches = handleMatchesContext.state.matches
+
+    useEffect(() => setMatchesToStorage(matches), [matches])
 
     const handleHome = (e) => {
         setNewHomeScore(handleValueToBeOnlyNumeric(e.target.value))
@@ -19,13 +24,13 @@ const MatchComponent = ({homeName, awayName, homeScore, awayScore, id}) => {
     }
 
     const handleUpdateMatchScore = () => {
-        matches.dispatch({type: 'updateMatchScore', payload: {id: id, homeScore: newHomeScore, awayScore: newAwayScore}})
+        handleMatchesContext.dispatch({type: 'updateMatchScore', payload: {id: id, homeScore: newHomeScore, awayScore: newAwayScore}})
         setNewHomeScore(handleValueToBeOnlyNumeric(''))
         setNewAwayScore(handleValueToBeOnlyNumeric(''))
     }
 
     const handleFinishMatch = () => {
-        matches.dispatch({type: 'finishMatch', payload: {id: id}})
+        handleMatchesContext.dispatch({type: 'finishMatch', payload: {id: id}})
     }
 
     return <div className="match-container">

@@ -1,4 +1,5 @@
 import { createContext, useMemo, useReducer, useContext } from "react";
+import { getMatchesFromStorage } from "../storageService/Storage";
 
 const MatchesContext = createContext(undefined);
 
@@ -86,7 +87,9 @@ const matchesReducer = (state, action) => {
 };
 
 const MatchesProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(matchesReducer, { matches: [] });
+  const [state, dispatch] = useReducer(matchesReducer, {
+    matches: getMatchesFromStorage(),
+  });
 
   const memoizedMatches = useMemo(
     () => ({ state, dispatch }),
