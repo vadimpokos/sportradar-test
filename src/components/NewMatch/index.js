@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMatches } from "../../context/matchesContext";
+import "./styles.css";
 
 export const NewMatch = () => {
   const [home, setHome] = useState("");
@@ -16,19 +17,28 @@ export const NewMatch = () => {
   const handleMatchesContext = useMatches();
 
   const handleCreateMatch = () => {
-    handleMatchesContext.dispatch({
-      type: "setMatch",
-      payload: { home: home, away: away },
-    });
+    home &&
+      away &&
+      handleMatchesContext.dispatch({
+        type: "setMatch",
+        payload: {
+          id: handleMatchesContext.state.matches.length,
+          home: home,
+          away: away,
+        },
+      });
     setHome("");
     setAway("");
   };
 
   return (
-    <>
-      <input value={home} onChange={handleHome}></input>
-      <input value={away} onChange={handleAway}></input>
-      <button onClick={handleCreateMatch}>Create!</button>
-    </>
+    <div className="create-container">
+      <div className="create-title">Create new match</div>
+      <div className="create-inputs">
+        <input value={home} onChange={handleHome}></input>
+        <input value={away} onChange={handleAway}></input>
+        <button onClick={handleCreateMatch}>Create!</button>
+      </div>
+    </div>
   );
 };
