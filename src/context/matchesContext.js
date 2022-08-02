@@ -1,11 +1,12 @@
 import { createContext, useMemo, useReducer, useContext } from "react";
 import { getMatchesFromStorage } from "../storageService/Storage";
+import { FINISH_MATCH, SET_MATCH, UPDATE_MATCH_SCORE } from "./constants";
 
 const MatchesContext = createContext(undefined);
 
 const matchesReducer = (state, action) => {
   switch (action.type) {
-    case "setMatch":
+    case SET_MATCH:
       return {
         ...state,
         matches: [
@@ -20,7 +21,7 @@ const matchesReducer = (state, action) => {
           },
         ],
       };
-    case "updateMatchScore":
+    case UPDATE_MATCH_SCORE:
       return {
         ...state,
         matches: [
@@ -51,7 +52,7 @@ const matchesReducer = (state, action) => {
           ),
         ],
       };
-    case "finishMatch":
+    case FINISH_MATCH:
       return {
         ...state,
         matches: [

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { setMatch } from "../../context/actions";
 import { useMatches } from "../../context/matchesContext";
 import { setMatchesToStorage } from "../../storageService/Storage";
 import "./styles.css";
@@ -24,14 +25,7 @@ export const NewMatch = () => {
   const handleCreateMatch = () => {
     home &&
       away &&
-      handleMatchesContext.dispatch({
-        type: "setMatch",
-        payload: {
-          id: matches.length,
-          home: home,
-          away: away,
-        },
-      });
+      handleMatchesContext.dispatch(setMatch(matches.length, home, away));
     setHome("");
     setAway("");
   };

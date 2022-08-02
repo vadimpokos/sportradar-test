@@ -3,6 +3,7 @@ import './styles.css'
 import { handleValueToBeOnlyNumeric } from "../../utilities/numericInputMask"
 import { useMatches } from "../../context/matchesContext"
 import { setMatchesToStorage } from "../../storageService/Storage"
+import { finishMatch, updateMatchScore } from "../../context/actions"
 
 const MatchComponent = ({homeName, awayName, homeScore, awayScore, id}) => {
 
@@ -24,13 +25,13 @@ const MatchComponent = ({homeName, awayName, homeScore, awayScore, id}) => {
     }
 
     const handleUpdateMatchScore = () => {
-        handleMatchesContext.dispatch({type: 'updateMatchScore', payload: {id: id, homeScore: newHomeScore, awayScore: newAwayScore}})
+        handleMatchesContext.dispatch(updateMatchScore(id, newHomeScore, newAwayScore))
         setNewHomeScore(handleValueToBeOnlyNumeric(''))
         setNewAwayScore(handleValueToBeOnlyNumeric(''))
     }
 
     const handleFinishMatch = () => {
-        handleMatchesContext.dispatch({type: 'finishMatch', payload: {id: id}})
+        handleMatchesContext.dispatch(finishMatch(id))
     }
 
     return <div className="match-container">
