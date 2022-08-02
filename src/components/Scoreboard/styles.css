@@ -1,0 +1,6 @@
+.scoreboard-container {
+    border: 1px solid #D3D3D3;
+    border-radius: 5px;
+    margin: 40px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+}
