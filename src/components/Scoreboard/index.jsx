@@ -7,6 +7,7 @@ import { useMatches } from "../../context/matchesContext"
 const ScoreBoardComponent = () => {
     const matches = useMatches().state.matches
     return <div className="scoreboard-container">
+        <div className="scoreboard-title">Scoreboard</div>
         {matches.map(({homeName, awayName, homeScore, awayScore, finished, id}) => !finished && <Match key={homeName+awayName} id={id} homeName={homeName} awayName={awayName} homeScore={homeScore} awayScore={awayScore} />)}
         <NewMatch/>
     </div>

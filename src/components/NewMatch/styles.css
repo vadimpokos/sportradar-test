@@ -1,5 +1,5 @@
 .create-container {
-    margin: 10px auto;
+    margin: 20px auto;
     width: fit-content;
 
     border: 1px solid #D3D3D3;
@@ -10,4 +10,10 @@
 
 .create-title {
     text-align: center;
+}
+
+.create-inputs-wrapper {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
 }

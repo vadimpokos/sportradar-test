@@ -5,6 +5,8 @@ import { useMatches } from "../../context/matchesContext"
 import { setMatchesToStorage } from "../../storageService/Storage"
 import { finishMatch, updateMatchScore } from "../../context/actions"
 
+const numericInputLimit = 3
+
 const MatchComponent = ({homeName, awayName, homeScore, awayScore, id}) => {
 
     const [newHomeScore, setNewHomeScore] = useState('')
@@ -17,11 +19,11 @@ const MatchComponent = ({homeName, awayName, homeScore, awayScore, id}) => {
     useEffect(() => setMatchesToStorage(matches), [matches])
 
     const handleHome = (e) => {
-        setNewHomeScore(handleValueToBeOnlyNumeric(e.target.value))
+        setNewHomeScore(handleValueToBeOnlyNumeric(e.target.value).slice(0, numericInputLimit))
     }
 
     const handleAway = (e) => {
-        setNewAwayScore(handleValueToBeOnlyNumeric(e.target.value))
+        setNewAwayScore(handleValueToBeOnlyNumeric(e.target.value).slice(0, numericInputLimit))
     }
 
     const handleUpdateMatchScore = () => {
@@ -35,12 +37,14 @@ const MatchComponent = ({homeName, awayName, homeScore, awayScore, id}) => {
     }
 
     return <div className="match-container">
-        <div className="team-name home-name">Home: {homeName}</div>
-        <div className="score">{`${homeScore} : ${awayScore}`}</div>
-        <div className="team-name away-name">Away: {awayName}</div>
-        <div>
-            <input value={newHomeScore} onChange={handleHome} />
-            <input value={newAwayScore} onChange={handleAway}  />
+        <div className="match-data-display">
+            <div className="team-name home-name">Home: {homeName}</div>
+            <div className="score">{`${homeScore} : ${awayScore}`}</div>
+            <div className="team-name away-name">Away: {awayName}</div>
+        </div>
+        <div className="match-data-entry">
+            <div><div>New Home score</div><input value={newHomeScore} onChange={handleHome} /></div>
+            <div><div>New Away score</div><input value={newAwayScore} onChange={handleAway}  /></div>
             <button onClick={handleUpdateMatchScore}>Update scores!</button>
             <button onClick={handleFinishMatch}>Finish Game!</button>
         </div>
