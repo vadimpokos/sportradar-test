@@ -1,10 +1,10 @@
 export const compareMatchesByScoreAndId = (matchA, matchB) => {
-  const compareValue =
+  const comparedTotalScore =
     +matchB.awayScore +
     +matchB.homeScore -
     (+matchA.awayScore + +matchA.homeScore);
-  if (compareValue !== 0) {
-    return compareValue;
+  if (comparedTotalScore !== 0) {
+    return comparedTotalScore;
   }
   return +matchB.id - +matchA.id;
 };

@@ -25,60 +25,36 @@ const matchesReducer = (state, action) => {
       return {
         ...state,
         matches: [
-          ...state.matches.slice(
-            0,
-            state.matches.findIndex((item) => item.id === action.payload.id)
-          ),
+          ...state.matches.slice(0, action.payload.id),
           {
             id: action.payload.id,
-            homeName: state.matches.find(
-              (item) => item.id === action.payload.id
-            ).homeName,
-            awayName: state.matches.find(
-              (item) => item.id === action.payload.id
-            ).awayName,
+            homeName: state.matches[action.payload.id].homeName,
+            awayName: state.matches[action.payload.id].awayName,
             homeScore: action.payload.homeScore
               ? action.payload.homeScore
-              : state.matches.find((item) => item.id === action.payload.id)
-                  .homeScore,
+              : state.matches[action.payload.id].homeScore,
             awayScore: action.payload.awayScore
               ? action.payload.awayScore
-              : state.matches.find((item) => item.id === action.payload.id)
-                  .awayScore,
+              : state.matches[action.payload.id].awayScore,
             finished: false,
           },
-          ...state.matches.slice(
-            state.matches.findIndex((item) => item.id === action.payload.id) + 1
-          ),
+          ...state.matches.slice(action.payload.id + 1),
         ],
       };
     case FINISH_MATCH:
       return {
         ...state,
         matches: [
-          ...state.matches.slice(
-            0,
-            state.matches.findIndex((item) => item.id === action.payload.id)
-          ),
+          ...state.matches.slice(0, action.payload.id),
           {
             id: action.payload.id,
-            homeName: state.matches.find(
-              (item) => item.id === action.payload.id
-            ).homeName,
-            awayName: state.matches.find(
-              (item) => item.id === action.payload.id
-            ).awayName,
-            homeScore: state.matches.find(
-              (item) => item.id === action.payload.id
-            ).homeScore,
-            awayScore: state.matches.find(
-              (item) => item.id === action.payload.id
-            ).awayScore,
+            homeName: state.matches[action.payload.id].homeName,
+            awayName: state.matches[action.payload.id].awayName,
+            homeScore: state.matches[action.payload.id].homeScore,
+            awayScore: state.matches[action.payload.id].awayScore,
             finished: true,
           },
-          ...state.matches.slice(
-            state.matches.findIndex((item) => item.id === action.payload.id) + 1
-          ),
+          ...state.matches.slice(action.payload.id + 1),
         ],
       };
     default: {
